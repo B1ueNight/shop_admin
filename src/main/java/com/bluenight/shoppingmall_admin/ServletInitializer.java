@@ -1,4 +1,4 @@
-package com.bluenight.shoopingmall_admin;
+package com.bluenight.shoppingmall_admin;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

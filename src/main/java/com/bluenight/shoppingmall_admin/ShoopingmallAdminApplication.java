@@ -1,4 +1,4 @@
-package com.bluenight.shoopingmall_admin;
+package com.bluenight.shoppingmall_admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

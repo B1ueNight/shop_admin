@@ -1,0 +1,12 @@
+header {
+    width: 100%; background-color: #fab;
+    padding: 10px 30px; box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+}
+#gub {float: right;}
+#gub > a {text-decoration: none; margin: 3px; display: inline-block; vertical-align: middle; color: #333; position: relative; margin-top: 7px;}
+#gub > a > * {display: inline-block; vertical-align: middle;}
+#gub > a > span {margin-left: 10px;}
+#gub > a > img {border-radius: 5px;}
+.new_badge {background-color: orangered; width: 10px; height: 10px; border-radius: 50%; display: inline-block; position: absolute;
+            right: -3px; top: -2px;}
