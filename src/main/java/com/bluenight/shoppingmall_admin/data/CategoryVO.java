@@ -6,6 +6,7 @@ import lombok.Data;
 public class CategoryVO {
     private String cate_seq;
     private String cate_name;
-    private String count;
+    private Integer cate_parent;
+    private Integer count;
     private String parent_name;
 }
