@@ -23,6 +23,11 @@ public class CategoryController {
         model.addAttribute("list", list);
         model.addAttribute("cnt", mapper.selectCategoryCnt());
 
+        Integer cnt = mapper.selectCategoryCnt();
+
+        Integer page = (cnt/12)+(cnt%10>0?1:0);
+        model.addAttribute("page", page);
+
         return "/manage/category";
     }
 }

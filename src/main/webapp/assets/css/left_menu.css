@@ -1,0 +1,22 @@
+/* left_menu.css */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+#left_nav { width: 250px; padding-top: 25px; position: fixed; top: 71px; left: 0;
+            background-color: #fff; box-shadow: 2px 0 8px rgba(0, 0, 0, 0.03);
+            height: calc(100vh - 95px);
+}
+#left_menu a { display: block; text-decoration: none; color: #979899; font-family: 'outfit', sans-serif;
+            padding-left: 30px; padding-top: 15px; padding-bottom: 15px;}
+
+#left_menu a * {display: inline-block; vertical-align: middle;}
+#left_menu span {font-family: 'outfit', sans-serif; margin-left: 15px;}
+#left_menu .current a {color: #fe634d;}
+#left_menu .sub a {margin-left: 45px; font-size: 14px; padding-top: 5px; padding-bottom: 5px;}
+
+#left_menu > li {position: relative;}
+#left_menu > li::before {
+    content: "";
+    display: inline-block; width: 16px; height: 80%; background-color: #fe634d;
+    position: absolute; left: 0; top: 10%; border-radius: 10px; margin-left: -8px; display: none;
+}
+
+#left_menu > li.current::before {display: inline-block;}
