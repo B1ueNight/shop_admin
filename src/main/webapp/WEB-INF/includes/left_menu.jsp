@@ -34,6 +34,23 @@
                     <a href="/manage/manufacturer">Manufacturer</a>
                 </li>
             </ul>
+            <li>
+                <a href="/account">
+                    <img src="http://placehold.it/25x25">
+                    <span>Accounts</span>
+                </a>
+            </li>
+            <ul class="sub">
+                <li>
+                    <a href="/account/adminstratore">Adminstratore</a>
+                </li>
+                <li>
+                    <a href="/account/seller">Sellers</a>
+                </li>
+                <li>
+                    <a href="/account/member">Members</a>
+                </li>
+            </ul>
         </ul>
     </nav>
 </body>
