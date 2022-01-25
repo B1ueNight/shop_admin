@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/delivery")
 public class DeliveryAPIController {
     @Autowired DeliveryMapper mapper;
-    @GetMapping("/delivery/list")
+    @GetMapping("/list")
     public List<DeliveryVO> DeliveryList(@RequestParam @Nullable String keyword){
         if(keyword == null) keyword = "%%";
         else keyword = "%"+keyword+"%";

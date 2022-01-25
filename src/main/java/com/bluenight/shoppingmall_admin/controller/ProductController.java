@@ -1,5 +1,6 @@
 package com.bluenight.shoppingmall_admin.controller;
 
+import com.bluenight.shoppingmall_admin.mapper.CategoryMapper;
 import com.bluenight.shoppingmall_admin.mapper.ProductMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ProductController {
     @Autowired ProductMapper mapper;
+    @Autowired CategoryMapper cate_mapper;
     @GetMapping("/product/list")
     public String getProductList(
         @RequestParam @Nullable String keyword,
@@ -27,10 +29,13 @@ public class ProductController {
             model.addAttribute("offset", offset);
 
             model.addAttribute("list", mapper.selectProductList(keyword, offset));
+            model.addAttribute("root_cate", cate_mapper.selectRootCategories());
+
             Integer cnt = mapper.selectProductCnt(keyword, type);
             Integer page = (cnt / 10) + (cnt%10>0? 1:0);
             model.addAttribute("cnt", cnt);
             model.addAttribute("page", page);
+
 
             return "/product/list";
         }

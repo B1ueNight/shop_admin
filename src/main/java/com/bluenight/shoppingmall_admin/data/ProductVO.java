@@ -29,4 +29,5 @@ public class ProductVO {
     private String mfi_phone;
     private Double discounted_price;
     private Double saving_point;
+    private String thumbnail;
 }
