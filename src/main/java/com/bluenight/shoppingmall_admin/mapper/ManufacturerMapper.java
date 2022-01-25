@@ -14,4 +14,6 @@ public interface ManufacturerMapper {
     void interfaceManufacturer(ManufacturerVO data);
     void updateManufacturer(ManufacturerVO data);
     void deleteManufacturer(Integer seq);
+
+    
 }

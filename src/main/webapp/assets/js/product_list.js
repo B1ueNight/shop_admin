@@ -47,12 +47,12 @@ $(function(){
     let delivery_seq = 0;
     let delivery_name = "";
     $("#pi_delivery").click(function(){
-        $(".delivery_list tbody").html("");
         $.ajax({
             url:"/delivery/list?keyword="+delivery_keyword,
             type:"get",
             success:function(data) {
                 console.log(data);
+                $(".delivery_list tbody").html("");
                 for(let i=0; i<data.length; i++){
                     let tag =
                     '<tr>'+
@@ -71,26 +71,79 @@ $(function(){
                     // $("#pi_delivery").val(name);
                     $(".delivery_list tr").css("background-color", "");
                     $(this).parent().parent().css("background-color", "yellow");
-
                 })
-            } 
+            }
         })
-    })
+    });
+
     $("#delivery_search_btn").click(function(){
         delivery_keyword = $("#delivery_keyword").val();
         $("#pi_delivery").trigger("click");
-    })
+    });
     $("#delivery_keyword").keydown(function(e) {
         if(e.keyCode == 13) $("#delivery_search_btn").trigger("click");
-    })
+    });
     $("#delivery_save").click(function(){
         $("#pi_delivery").attr("di-seq", delivery_seq);
         $("#pi_delivery").val(delivery_name);
         $(".delivery_list tr").css("background-color", "");
-    })
+    });
     $("#delivery_cancel").click(function(){
         delivery_seq = 0;
         delivery_name = "";
         $(".delivery_list tr").css("background-color", "");
+    });
+
+    let manufacturer_keyword = "";
+    let manufacturer_seq = 0;
+    let manufacturer_name = "";
+    $("#pi_manufacturer").click(function(){
+        $.ajax({
+            url:"/manufacturer/list?keyword="+manufacturer_keyword,
+            type:"get",
+            success:function(r){
+                console.log(r);
+                $(".mf_pager_area").html("");
+                for(let i=0; i<r.page; i++) {
+                    let tag = '<button class="mf_pager" data-offset="'+(i*24)+'">'+(i+1)+'</button>';
+                    $(".mf_pager_area").append(tag);
+                }
+                $(".manufacturer_list tbody").html("");
+                for(let i=0; i<r.list.length; i++){
+                    let tag =
+                        '<tr>'+
+                            '<td>'+r.list[i].mfi_name+'</td>'+
+                            '<td>'+r.list[i].mfi_phone+'</td>'+
+                            '<td>'+r.list[i].mfi_email+'</td>'+
+                            '<td><button class="manufacturer_sel" data-seq="'+r.list[i].mfil_seq+'" data-name="'+r.list[i].mfi_name+'">선택</button></td>'+
+                        '</tr>';
+                    $(".manufacturer_list tbody").append(tag);
+                }
+                $(".manufacturer_sel").click(function(){
+                    manufacturer_seq = $(this).attr("data-seq");
+                    manufacturer_name = $(this).attr("data-name");
+                    $(".manufacturer_list tr").css("background-color", "");
+                    $(this).parent().parent().css("background-color", "yellow");
+                })
+            }
+        })
+    })
+
+    $("#manufacturer_save").click(function(){
+        $("#pi_manufacturer").attr("data-seq", manufacturer_seq);
+        $("#pi_manufacturer").val(manufacturer_name);
+        $(".manufacturer_list tr").css("background-color", "");
+    });
+    $("#manufacturer_cancel").click(function(){
+        manufacturer_seq = 0;
+        manufacturer_name = "";
+        $(".manufacturer_list tr").css("background-color", "");
+    });
+    $("#manufacturer_search_btn").click(function(){
+        manufacturer_keyword = $("#manufacturer_keyword").val();
+        $("#pi_manufacturer").trigger("click");
+    })
+    $("#manufacturer_keyword").keydown(function(e){
+        if(e.keyCode == 13) $("#manufacturer_search_btn").trigger("click");
     })
 })

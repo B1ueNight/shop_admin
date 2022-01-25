@@ -120,6 +120,27 @@
                 </div>
             </div>
         </div>
+        <div class="manufacturer_popup">
+            <h1>제조사 검색</h1>
+            <div class="manufacturer_list">
+                <input type="text" id="manufacturer_keyword">
+                <button id="manufacturer_search_btn">검색</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제조사 명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="manufacturer_btns">
+                <button id="manufacturer_save">저장</button>
+                <button id="manufacturer_cancel">취소</button>
+            </div>
+        </div>
         <div class="delivery_popup">
             <h1>배송사 검색</h1>
             <div class="delivery_list">
@@ -140,6 +161,34 @@
             <div class="dlivery_btns">
                 <button id="delivery_save">저장</button>
                 <button id="delivery_cancel">취소</button>
+            </div>
+        </div>
+
+
+        <div class="manufacturer_popup">
+            <h1>제조사 검색</h1>
+            <div class="manufacturer_list">
+                <input type="text" id="manufacturer_keyword">
+                <button id="manufacturer_search_btn">검색</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제조사 명</th>
+                            <th>연락처</th>
+                            <th>이메일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="mf_pager_area">
+                    
+                </div>
+            </div>
+            <div class="manufacturer_btns">
+                <button id="manufacturer_save">저장</button>
+                <button id="manufacturer_cancel">취소</button>
             </div>
         </div>
     </main>
