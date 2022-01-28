@@ -23,19 +23,18 @@ public class ProductController {
             model.addAttribute("keyword", keyword);
             if(keyword == null) keyword = "%%";
             else keyword = "%"+keyword+"%";
-
-            if(offset == null) offset = null;
-
+            
+            if(offset == null) offset = 0;
             model.addAttribute("offset", offset);
-
+            
             model.addAttribute("list", mapper.selectProductList(keyword, offset));
             model.addAttribute("root_cate", cate_mapper.selectRootCategories());
 
-            Integer cnt = mapper.selectProductCnt(keyword, type);
-            Integer page = (cnt / 10) + (cnt%10>0? 1:0);
+            Integer cnt = mapper.selectProductCnt(keyword);
+            Integer page = (cnt/10)+(cnt%10>0? 1:0);
+            
             model.addAttribute("cnt", cnt);
-            model.addAttribute("page", page);
-
+            model.addAttribute("page",page);
 
             return "/product/list";
         }

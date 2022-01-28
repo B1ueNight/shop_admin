@@ -2,16 +2,36 @@ package com.bluenight.shoppingmall_admin.mapper;
 
 import java.util.List;
 
+import com.bluenight.shoppingmall_admin.data.ProductDataVO;
+import com.bluenight.shoppingmall_admin.data.ProductDescImageVO;
+import com.bluenight.shoppingmall_admin.data.ProductDescVO;
+import com.bluenight.shoppingmall_admin.data.ProductImageVO;
 import com.bluenight.shoppingmall_admin.data.ProductVO;
 
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ProductMapper {
-    List<ProductVO> selectProductList(String keyword, Integer offset);
-    Integer selectProductCnt(String keyword, String type);
+    List<ProductDataVO> selectProductList(String keyword, Integer offset);
+
     ProductVO selectProductBySeq(Integer seq);
-    void insertProduct(ProductVO data);
-    void updateProduct(ProductVO data);
+    String selectProductDescription(Integer seq);
+
+    Integer selectProductCnt(String keyword);
+    void insertProductInfo(ProductDataVO data);
+    void insertProductImage(ProductImageVO data);
+    void insertProductDescription(ProductDescVO data);
+    void insertProductDescImage(ProductDescImageVO descImgVO);
+
+    List<String> selectProductImgNames(Integer seq);
+    List<String> selectProductDescImgNames(Integer seq);
+
     void deleteProduct(Integer seq);
+    void deleteProductImage(String fileName);
+    void deleteDetailProductImage(String fileName);
+
+    void updateProductInfo(ProductDataVO data);
+    void updateProdDetailDesc(String desc, Integer seq);
+    void deleteProductImageBySeq(Integer seq);
+    void deleteProductDetailImageBySeq(Integer seq);
 }

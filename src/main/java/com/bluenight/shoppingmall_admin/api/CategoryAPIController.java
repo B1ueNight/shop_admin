@@ -51,7 +51,7 @@ public class CategoryAPIController {
         return "카테고리가 수정되었습니다.";
     }
 
-    @GetMapping("category/select_one")
+    @GetMapping("/category/select_one")
     public Map<String, Object> getCategorySelectOne(@RequestParam Integer seq){
         List<Integer> parentList = new ArrayList<Integer>();
         Map<String, Object> resultMap = new LinkedHashMap<String, Object>();

@@ -1,19 +1,39 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
-<%@include file="/WEB-INF/includes/header.jsp"%>
-
+    <%@include file="/WEB-INF/includes/header.jsp"%>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="/assets/js/product_list.js"></script>
+    <link rel="stylesheet" href="/assets/css/product_list.css">
+    <script>
+        $(function(){
+            let offset = "${offset}";
+            $("#current_page").html(offset/10+1);
+        })
+    </script>
 </head>
-
 <body>
     <main>
         <h1>상품 관리</h1>
+        <div class="summary_area">
+            <div class="summary">
+                <h2>총 등록 제품 수 : ${cnt}개</h2>
+                <p>페이지 : <span id="current_page">1</span>/${page}</p>
+            </div>
+                <div class="search_area">
+                    <div class="search_box">
+                        <input type="text" id="keyword" value="${keyword}">
+                        <a href="#" id="search_btn">검색</a>
+                    </div>
+                    <button id="add_product" class="add_btn">
+                        <i class="fas fa-plus-square"></i> 제품 추가</button>
+                </div>
+            </div>
+
         <div class="product_list_area">
             <table>
                 <thead>
@@ -35,7 +55,9 @@
                     <c:forEach items="${list}" var="item">
                         <tr>
                             <td>${item.pi_seq}</td>
-                            <td><img src="/image/product/${item.thumbnail}"></td>
+                            <td>
+                                <span class="prod_thumb" style="background-image:url(/image/product/${item.thumbnail})"></span>
+                            </td>
                             <td>${item.pi_name}</td>
                             <td>${item.pi_price}</td>
                             <td>${item.pi_discount_rate}%</td>
@@ -50,38 +72,25 @@
                             </td>
                             <td>${item.mfi_name}</td>
                             <td>
-                                <button class="detail" data-seq=${item.pi_seq}>상세정보</button>
-                                <button class="delete" data-seq=${item.pi_seq}>삭제</button>
+                                <button class="detail" data-seq="${item.pi_seq}" title="상세정보"><i class="fas fa-info-circle"></i></button>
+                                <button class="delete" data-seq="${item.pi_seq}" title="삭제"><i class="fas fa-trash"></i></button>
                             </td>
                         </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
+        <div class="pager_area">
+            <c:forEach begin="1" end="${page}" var="i">
+                <a href="/product/list?keyword=${keyword}&offset=${(i-1)*10}" class="pager">${i}</a>
+            </c:forEach>
+        </div>
         <div class="popup_wrap">
             <div class="popup">
                 <h1>제품 <span>등록</span></h1>
                 <div class="prod_basic_info">
-                    <span>제품명</span>
-                    <input type="text" id="pi_name">
-                    <br>
-                    <span>가격</span>
-                    <input type="text" id="pi_price">
-                    <br>
-                    <span>부제목</span>
-                    <input type="text" id="pi_sub_title">
-                    <br>
-                    <span>할인률</span>
-                    <input type="text" id="pi_discount_rate">
-                    <br>
-                    <span>적립률</span>
-                    <input type="text" id="pi_point_rate">
-                    <br>
-                    <span>재고</span>
-                    <input type="text" id="pi_stock">
-                    <br>
-                    <span>카테고리</span>
                     <div class="category_box">
+                        <span>카테고리</span>
                         <select id="root_cate">
                             <option value="0">대분류 선택</option>
                             <c:forEach items="${root_cate}" var="item">
@@ -94,24 +103,82 @@
                         <select id="small_cate" disabled>
                             <option value="0">소분류 선택</option>
                         </select>
+                        <span>상태</span>
+                        <select id="pi_status">
+                            <option value="0">판매중</option>
+                            <option value="1">일시품절</option>
+                            <option value="2">품절</option>
+                            <option value="3">판매중단</option>
+                        </select>
                     </div>
-                    <br>
-                    <span>판매자</span>
-                    <input type="text" id="pi_seller">
-                    <br>
-                    <span>배송사</span>
-                    <input type="text" id="pi_delivery">
-                    <br>
-                    <span>제조사</span>
-                    <input type="text" id="pi_manufacturer">
-                    <br>
-                    <span>상태</span>
-                    <select id="pi_status">
-                        <option value="0">판매중</option>
-                        <option value="1">일시품절</option>
-                        <option value="2">품절</option>
-                        <option value="3">판매중단</option>
-                    </select>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>제품명</td>
+                                <td><input type="text" id="pi_name"></td>
+                                <td>가격</td>
+                                <td><input type="text" id="pi_price"></td>
+                                <td>재고</td>
+                                <td><input type="text" id="pi_stock"></td>
+                            </tr>
+                            <tr>
+                                <td>부제목</td>
+                                <td><input type="text" id="pi_sub_title"></td>
+                                <td>할인율</td>
+                                <td><input type="text" id="pi_discount_rate"></td>
+                                <td>적립율</td>
+                                <td><input type="text" id="pi_point_rate"></td>
+                            </tr>
+                            <tr>
+                                <td>판매자</td>
+                                <td><input type="text" id="pi_seller"></td>
+                                <td>배송사</td>
+                                <td><input type="text" id="pi_delivery"></td>
+                                <td>제조사</td>
+                                <td><input type="text" id="pi_manufacturer"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="product_img_area">
+                    <h2>제품 이미지 <span>(첫 번째로 등록하는 이미지가 대표 이미지로 사용됩니다.)</span></h2>
+                    <div class="product_imgs">
+                    </div>
+                    <div class="product_img_add">    
+                        <div class="icon">
+                            <i class="far fa-image"></i>
+                            <i class="fas fa-plus-square"></i>
+                        </div>                    
+                        <form id="prod_img_form">
+                            <input type="file" name="file" id="prod_img_input">
+                            <button id="prod_img_add" type="button">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="product_description_area">
+                    <h2>제품 설명</h2>
+                    <textarea id="product_description"></textarea>
+                </div>
+    
+                <div class="product_desc_img_area">
+                    <h2>제품 상세 이미지</h2>
+                    <div class="product_desc_imgs">
+                    </div>
+                    <div class="product_desc_img_add">
+                        <div class="icon">
+                            <i class="far fa-image"></i>
+                            <i class="fas fa-plus-square"></i>
+                        </div>                     
+                        <form id="prod_desc_img_form">
+                            <input type="file" name="file" id="prod_desc_img_input">
+                            <button id="prod_desc_img_add" type="button">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="btns">
                     <button id="save">등록</button>
@@ -120,70 +187,56 @@
                 </div>
             </div>
         </div>
-        <div class="manufacturer_popup">
-            <h1>제조사 검색</h1>
-            <div class="manufacturer_list">
-                <input type="text" id="manufacturer_keyword">
-                <button id="manufacturer_search_btn">검색</button>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>제조사 명</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
-            <div class="manufacturer_btns">
-                <button id="manufacturer_save">저장</button>
-                <button id="manufacturer_cancel">취소</button>
-            </div>
-        </div>
-        <div class="delivery_popup">
+    </div>
+        
+        <div class="delivery_popup search_popup">
             <h1>배송사 검색</h1>
             <div class="delivery_list">
-                <input type="text" id="delivery_keyword">
+                <input type="text" id="delivery_keyword" placeholder="검색 할 배송사를 입력하세요">
                 <button id="delivery_search_btn">검색</button>
+                <div class="table_area">
                 <table>
                     <thead>
                         <tr>
                             <th>배송사 명</th>
                             <th>배송비</th>
+                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                            <tbody>
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="dlivery_btns">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <div class="delivery_btns">
                 <button id="delivery_save">저장</button>
                 <button id="delivery_cancel">취소</button>
             </div>
         </div>
 
 
-        <div class="manufacturer_popup">
+        <div class="manufacturer_popup search_popup">
             <h1>제조사 검색</h1>
             <div class="manufacturer_list">
-                <input type="text" id="manufacturer_keyword">
+                <input type="text" id="manufacturer_keyword" placeholder="검색 할 제조사를 입력하세요">
                 <button id="manufacturer_search_btn">검색</button>
+                <div class="table_area">
                 <table>
                     <thead>
-                        <tr>
-                            <th>제조사 명</th>
-                            <th>연락처</th>
-                            <th>이메일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                            <tr>
+                                <th>제조사 명</th>
+                                <th>연락처</th>
+                                <th>이메일</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                            <tbody>     
 
-                    </tbody>
-                </table>
-                <div class="mf_pager_area">
-                    
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mf_pager_area">
                 </div>
             </div>
             <div class="manufacturer_btns">

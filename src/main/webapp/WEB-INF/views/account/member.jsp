@@ -53,6 +53,7 @@
                             <td>${item.mi_seq}</td>
                             <td>${item.mi_email}</td>
                             <td>${item.mi_birth}</td>
+                            <td>${item.mi_name}</td>
                             <td>
                                 <c:if test="${item.mi_gen == 1}"><span>선택안함</span></c:if>
                                 <c:if test="${item.mi_gen == 2}"><span>남성</span></c:if>
