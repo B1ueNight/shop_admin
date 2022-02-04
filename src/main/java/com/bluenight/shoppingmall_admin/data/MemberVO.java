@@ -18,4 +18,5 @@ public class MemberVO {
     private Integer mi_status;
     private Date mi_reg_dt;
     private Date mi_leave_dt;
+    private Integer mi_role;
 }

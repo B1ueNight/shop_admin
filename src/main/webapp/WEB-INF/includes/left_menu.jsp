@@ -34,6 +34,7 @@
                     <a href="/manage/manufacturer">Manufacturer</a>
                 </li>
             </ul>
+            <c:if test="${adminuser !=null}">
             <li>
                 <a href="/account">
                     <img src="http://placehold.it/25x25">
@@ -42,15 +43,29 @@
             </li>
             <ul class="sub">
                 <li>
-                    <a href="/account/adminstratore">Adminstratore</a>
-                </li>
-                <li>
                     <a href="/account/seller">Sellers</a>
                 </li>
                 <li>
                     <a href="/account/member">Members</a>
                 </li>
             </ul>
+            </c:if>
+            <li>
+                <a href="/product">
+                    <img src="http://placehold.it/25x25">
+                    <span>Product</span>
+                </a>
+                </li>
+                <ul class="sub">
+                <li>
+                    <a href="/product/list">Product List</a>
+                </li>
+                <li>
+                    <a href="/product/review">Product Review</a>
+                </li>
+                    <li>
+                        <a href="/product/qna">Product QnA</a>
+                    </li>
         </ul>
     </nav>
 </body>

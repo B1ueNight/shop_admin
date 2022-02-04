@@ -43,6 +43,7 @@
                         <th>연락처</th>
                         <th>회원등급</th>
                         <th>상태</th>
+                        <th>계정유형</th>
                         <th>등록일</th>
                         <th>탈퇴일</th>
                     </tr>
@@ -52,8 +53,8 @@
                         <tr>
                             <td>${item.mi_seq}</td>
                             <td>${item.mi_email}</td>
-                            <td>${item.mi_birth}</td>
                             <td>${item.mi_name}</td>
+                            <td>${item.mi_birth}</td>
                             <td>
                                 <c:if test="${item.mi_gen == 1}"><span>선택안함</span></c:if>
                                 <c:if test="${item.mi_gen == 2}"><span>남성</span></c:if>
@@ -74,6 +75,11 @@
                                 <c:if test="${item.mi_status == 3}"><span class="status st3">가입대기</span></c:if>
                                 <c:if test="${item.mi_status == 4}"><span class="status st4">탈퇴대기</span></c:if>
                                 <c:if test="${item.mi_status == 5}"><span class="status st5">영구정지</span></c:if>
+                            </td>
+                            <td>
+                                <c:if test="${item.mi_role == 1}"><span class="role r1">일반사용자</span></c:if>
+                                <c:if test="${item.mi_role == 2}"><span class="role r2">관리자</span></c:if>
+                                <c:if test="${item.mi_role == 99}"><span class="role r3">슈퍼유저</span></c:if>
                             </td>
                             <td>
                                 <fmt:formatDate value="${item.mi_reg_dt}" pattern="yyyy-MM-dd" />
@@ -129,6 +135,11 @@
                     <option value="3">가입대기</option>
                     <option value="4">탈퇴대기</option>
                     <option value="5">영구정지</option>
+                </select>
+                <select id="mi_role">
+                    <option value="1">일반사용자</option>
+                    <option value="2">관리자</option>
+                    <option value="99">슈퍼유저</option>
                 </select>
                 <div class="btns">
                     <button id="save">저장</button>

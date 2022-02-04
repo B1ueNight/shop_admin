@@ -12,12 +12,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ProductMapper {
-    List<ProductDataVO> selectProductList(String keyword, Integer offset);
+    List<ProductDataVO> selectProductList(String keyword, Integer offset, Integer seller_seq);
 
     ProductVO selectProductBySeq(Integer seq);
     String selectProductDescription(Integer seq);
 
-    Integer selectProductCnt(String keyword);
+    Integer selectProductCnt(String keyword, Integer seller_seq);
     void insertProductInfo(ProductDataVO data);
     void insertProductImage(ProductImageVO data);
     void insertProductDescription(ProductDescVO data);

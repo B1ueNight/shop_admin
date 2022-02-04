@@ -1,5 +1,8 @@
 package com.bluenight.shoppingmall_admin.controller;
 
+import javax.servlet.http.HttpSession;
+
+import com.bluenight.shoppingmall_admin.data.SellerVO;
 import com.bluenight.shoppingmall_admin.mapper.CategoryMapper;
 import com.bluenight.shoppingmall_admin.mapper.ProductMapper;
 
@@ -18,7 +21,12 @@ public class ProductController {
     public String getProductList(
         @RequestParam @Nullable String keyword,
         @RequestParam @Nullable String type,
-        @RequestParam @Nullable Integer offset, Model model) {
+        @RequestParam @Nullable Integer offset, Model model,
+        HttpSession session) {
+
+            SellerVO seller = (SellerVO)session.getAttribute("login_seller");
+            Integer seller_seq = 0;
+            if(seller != null) seller_seq = seller.getSi_seq();
 
             model.addAttribute("keyword", keyword);
             if(keyword == null) keyword = "%%";
@@ -27,10 +35,10 @@ public class ProductController {
             if(offset == null) offset = 0;
             model.addAttribute("offset", offset);
             
-            model.addAttribute("list", mapper.selectProductList(keyword, offset));
+            model.addAttribute("list", mapper.selectProductList(keyword, offset, seller_seq));
             model.addAttribute("root_cate", cate_mapper.selectRootCategories());
 
-            Integer cnt = mapper.selectProductCnt(keyword);
+            Integer cnt = mapper.selectProductCnt(keyword, seller_seq);
             Integer page = (cnt/10)+(cnt%10>0? 1:0);
             
             model.addAttribute("cnt", cnt);

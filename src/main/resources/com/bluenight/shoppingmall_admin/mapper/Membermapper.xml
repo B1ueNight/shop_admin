@@ -3,7 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bluenight.shoppingmall_admin.mapper.MemberMapper">
     <select id="getMemberList" resultType="com.bluenight.shoppingmall_admin.data.MemberVO">
-        select mi_seq,mi_email,mi_name,mi_birth,mi_gen,mi_address,mi_phone,mi_grade,mi_status,mi_reg_dt,mi_leave_dt
+        select mi_seq,mi_email,mi_name,mi_birth,mi_gen,mi_address,mi_phone,mi_grade,mi_status,mi_reg_dt,mi_leave_dt,mi_role
         from member_info
         <if test="type=='email'">
             where mi_email like #{keyword}
@@ -42,17 +42,17 @@
         </if>
     </select>
     <select id="getMemberBySeq" resultType="com.bluenight.shoppingmall_admin.data.MemberVO">
-        select mi_seq,mi_email,mi_name,mi_birth,mi_gen,mi_address,mi_phone,mi_grade,mi_status,mi_reg_dt,mi_leave_dt
+        select mi_seq,mi_email,mi_name,mi_birth,mi_gen,mi_address,mi_phone,mi_grade,mi_status,mi_reg_dt,mi_leave_dt,mi_role
         from member_info where mi_seq = #{seq}
     </select>
     <insert id="insertmember">
-        insert into member_info (mi_email, mi_pwd, mi_name,mi_birth,mi_gen,mi_address,mi_phone,mi_grade,mi_status)
-        values (#{mi_email}, #{mi_pwd}, #{mi_name}, #{mi_birth}, #{mi_gen}, #{mi_address}, #{mi_phone}, #{mi_grade}, #{mi_status})
+        insert into member_info (mi_email, mi_pwd, mi_name,mi_birth,mi_gen,mi_address,mi_phone,mi_grade,mi_status, mi_role)
+        values (#{mi_email}, #{mi_pwd}, #{mi_name}, #{mi_birth}, #{mi_gen}, #{mi_address}, #{mi_phone}, #{mi_grade}, #{mi_status}, #{mi_role})
     </insert>
     <update id="updatemember">
         update member_info
         set mi_name=#{mi_name},mi_birth=#{mi_birth},mi_gen=#{mi_gen},mi_address=#{mi_address},
-            mi_phone=#{mi_phone},mi_grade=#{mi_grade},mi_status=#{mi_status}
+            mi_phone=#{mi_phone},mi_grade=#{mi_grade},mi_status=#{mi_status}, mi_role=#{mi_role}
         where mi_seq=#{mi_seq}
     </update>
     <delete id="deletemember">
@@ -60,5 +60,9 @@
     </delete>
     <select id="isExistEmail" resultType="java.lang.Integer">
         select count(*) from member_info where mi_email = #{email}
+    </select>
+    <select id="memberLogin" resultType="com.bluenight.shoppingmall_admin.data.MemberVO">
+        select mi_seq, mi_email, mi_name, mi_birth, mi_gen, mi_address, mi_phone, mi_grade, mi_status, mi_reg_dt, mi_leave_dt, mi_role
+        from member_info where mi_email = #{user_id} and mi_pwd =#{user_pwd}
     </select>
     </mapper>

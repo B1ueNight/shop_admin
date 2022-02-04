@@ -208,7 +208,7 @@ $(function () {
                 pi_point_rate: $("#pi_point_rate").val(),
                 pi_stock: $("#pi_stock").val(),
                 pi_cate_seq: cate_seq,
-                pi_seller_seq: 1,
+                pi_seller_seq: $("#pi_seller").attr("data-seq"),
                 pi_delivery: $("#pi_delivery").attr("di-seq"),
                 pi_mfi_seq: $("#pi_manufacturer").attr("data-seq"),
                 pi_status: $("#pi_status option:selected").val()
@@ -427,10 +427,13 @@ $(function () {
                 $("#pi_manufacturer").val(data.p_data.mfi_name);
                 $("#pi_status").val(data.p_data.pi_status).prop("selected", true);
                 $("#product_description").val(data.p_desc);
+                $("#pi_seller").val(data.p_data.si_name);
+                $("#pi_seller").attr("data-seq", data.p_data.si_seq);
             }
         })
     })
     $(".popup .btns #cancel").click(function () {
+        if(!confirm("취소하시겠습니까?\n입력한 내용은 저장되지 않습니다.")) return;
         $(".popup_wrap").css("display", "");
         $("#pi_name").val("");
         $("#pi_price").val("");
@@ -527,7 +530,7 @@ $(function () {
                 pi_point_rate: $("#pi_point_rate").val(),
                 pi_stock: $("#pi_stock").val(),
                 pi_cate_seq: cate_seq,
-                pi_seller_seq: 1,
+                pi_seller_seq: $("#pi_seller").attr("data-seq"),
                 pi_delivery: $("#pi_delivery").attr("di-seq"),
                 pi_mfi_seq: $("#pi_manufacturer").attr("data-seq"),
                 pi_status: $("#pi_status option:selected").val()

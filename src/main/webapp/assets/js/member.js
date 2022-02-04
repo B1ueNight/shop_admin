@@ -18,7 +18,7 @@ $(function(){
     })
     $("#cancel").click(function(){
         if(!confirm("취소하시겠습니까?\n입력된 정보는 저장되지 않습니다.")) return;
-        $(".popup_warp").css("display", "none");
+        $(".popup_wrap").css("display", "");
         $("#mi_email").val("");
         $("#mi_name").val("");
         $("#mi_pwd").val("");
@@ -49,6 +49,7 @@ $(function(){
                 $("#mi_gen").val(data.mi_gen).prop("selected", true);
                 $("#mi_grade").val(data.mi_grade).prop("selected", true);
                 $("#mi_status").val(data.mi_status).prop("selected", true);
+                $("#mi_role").val(data.mi_role).prop("selected", true);
                 $("#update").attr("data-seq", seq);
                 $(".popup_wrap").css("display", "block");
                 $(".popup_wrap h2 span").html("수정");
@@ -89,7 +90,8 @@ $(function(){
             mi_gen:$("#mi_gen option:selected").val(),
             mi_address:$("#mi_address").val(),
             mi_grade:$("#mi_grade option:selected").val(),
-            mi_status:$("#mi_status option:selected").val()
+            mi_status:$("#mi_status option:selected").val(),
+            mi_role:$("#mi_role option:selected").val()
         }
         $.ajax({
             url:"/member/add",
@@ -113,7 +115,8 @@ $(function(){
             mi_gen:$("#mi_gen option:selected").val(),
             mi_address:$("#mi_address").val(),
             mi_grade:$("#mi_grade option:selected").val(),
-            mi_status:$("#mi_status option:selected").val()
+            mi_status:$("#mi_status option:selected").val(),
+            mi_role:$("#mi_role option:selected").val()
         }
         $.ajax({
             url:"/member/update",
