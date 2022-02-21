@@ -46,4 +46,75 @@ public class ProductController {
 
             return "/product/list";
         }
+
+        @GetMapping("/product/recommend")
+        public String getProductRecommend(Model model, @RequestParam @Nullable String keyword, @RequestParam @Nullable Integer offset)
+        { 
+            model.addAttribute("keyword", keyword);
+            if(keyword == null) keyword = "%%";
+            else keyword = "%"+keyword+"%";
+
+            if(offset == null) offset = 0;
+
+            Integer cnt = mapper.selectProductCnt(keyword, 0);
+            Integer page = (cnt/10)+(cnt%10>0? 1:0);
+
+            model.addAttribute("cnt", cnt);
+            model.addAttribute("page", page);
+            
+            model.addAttribute("list", mapper.selectRecommendProductList(keyword, offset));
+            return "/product/recommend";
+        }
+        @GetMapping("/product/recommend/living")
+        public String getlivingRecommend(Model model, @RequestParam @Nullable String keyword, @RequestParam @Nullable Integer offset)
+        {   
+            model.addAttribute("keyword", keyword);
+            if(keyword == null) keyword = "%%";
+            else keyword = "%"+keyword+"%";
+
+            if(offset == null) offset = 0;
+
+            Integer cnt = mapper.selectProductCnt(keyword, 0);
+            Integer page = (cnt/10)+(cnt%10>0? 1:0);
+
+            model.addAttribute("cnt", cnt);
+            model.addAttribute("page", page);
+            
+            model.addAttribute("list", mapper.selectRecommendProductList(keyword, offset));
+            return "/product/recommend";
+        }
+        @GetMapping("/product/recommend/electro")
+        public String geteletroRecommend(Model model, @RequestParam @Nullable String keyword, @RequestParam @Nullable Integer offset)
+        {
+            model.addAttribute("keyword", keyword);
+            if(keyword == null) keyword = "%%";
+            else keyword = "%"+keyword+"%";
+            if(offset == null) offset = 0;
+
+            Integer cnt = mapper.selectProductCnt(keyword, 0);
+            Integer page = (cnt/10)+(cnt%10>0? 1:0);
+
+            model.addAttribute("cnt", cnt);
+            model.addAttribute("page", page);
+            
+            model.addAttribute("list", mapper.selectRecommendProductList(keyword, offset));
+            return "/product/recommend";
+        }
+        @GetMapping("/product/recommend/desk")
+        public String getdeskRecommend(Model model, @RequestParam @Nullable String keyword, @RequestParam @Nullable Integer offset)
+        { 
+            model.addAttribute("keyword", keyword);
+            if(keyword == null) keyword = "%%";
+            else keyword = "%"+keyword+"%";
+            if(offset == null) offset = 0;
+
+            Integer cnt = mapper.selectProductCnt(keyword, 0);
+            Integer page = (cnt/10)+(cnt%10>0? 1:0);
+
+            model.addAttribute("cnt", cnt);
+            model.addAttribute("page", page);
+            
+            model.addAttribute("list", mapper.selectRecommendProductList(keyword, offset));
+            return "/product/recommend";
+        }
 }
