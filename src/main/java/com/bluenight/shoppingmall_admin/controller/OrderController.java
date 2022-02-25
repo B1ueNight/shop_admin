@@ -15,24 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class OrderController {
     @Autowired OrderMapper mapper;
     @GetMapping("/list")
-    public String getOrderList(@RequestParam @Nullable String keyword,
-        @RequestParam @Nullable Integer offset, Model model){
-        
-            model.addAttribute("keyword", keyword);
-            if(keyword == null) keyword="%%";
-            else keyword = "%"+keyword+"%";
+    public String getOrderList(@RequestParam @Nullable Integer seq, @RequestParam @Nullable Integer offset, Model model){
 
-            if(offset == null) offset = 0;
+        if(seq == null) seq = 0;
+        if(offset == null) offset = 0;
 
-            model.addAttribute("offset", offset);
+        Integer cnt = mapper.selectOrderManagedInfoCount(seq);
+        Integer page = (cnt /10) + (cnt%10>0? 1:0);
+        model.addAttribute("list", mapper.selectOrderManagedInfo(seq, offset));
+        model.addAttribute("page", page);
+        model.addAttribute("offset", offset);
 
-            model.addAttribute("list", mapper.getOrderList(keyword, offset));
-            Integer cnt = mapper.getOrderCnt(keyword);
-            Integer page = (cnt/10) + (cnt%10>0? 1:0);
-            model.addAttribute("cnt", cnt);
-            model.addAttribute("page", page);
-        
-            return "/order/list";
+        return "/order/list";
     }
-    
 }

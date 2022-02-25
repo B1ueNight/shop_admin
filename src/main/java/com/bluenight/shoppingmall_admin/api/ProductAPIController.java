@@ -138,4 +138,10 @@ public class ProductAPIController {
         mapper.deleteProductRecommend(seq);
         return "추천 상품에서 삭제되었습니다.";
     }
+
+    @PatchMapping("/update/review/status")
+    public String patchReviewStatus(@RequestParam Integer seq , @RequestParam Integer status) {
+        mapper.patchReviewStatus(seq, status);
+        return "리뷰 상태가 변경되었습니다.";
+    }
 }

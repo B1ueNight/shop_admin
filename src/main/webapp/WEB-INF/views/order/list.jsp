@@ -7,93 +7,113 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <script src="/assets/js/order.js"></script>
 </head>
 <body>
     <main>
-        <h1>주문 현황</h1>
-        <div class="product_list">
-            <div class="product">
-                <h2>총 제품 수 : </h2>
-                <p> 페이지 : </p>
-            </div>
-            <div class="search_area">
-                <div class="search_box">
-                    <input type="text" id="keyword" value="${keyword}">
-                    <a href="#" id="search_btn">검색</a>
-                </div>
-                <div class="order_list">
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>번호</td>
-                                <td>상품 번호</td>
-                                <td>주문자</td>
-                                <td>가격</td>
-                                <td>수량</td>
-                                <td>받는 사람</td>
-                                <td>주소</td>
-                                <td>연락처</td>
-                                <td>배송 메세지</td>
-                                <td>결제수단</td>
-                                <td>배송상태</td>
-                                <td>송장번호</td>
-                                <td>상태</td>
-                                <td>등록일</td>
-                                <td>업데이트</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${list}" var="item">
-                                <tr>
-                                    <td>${item.oi_seq}</td>
-                                    <td>${item.oi_pi_seq}</td>
-                                    <td>
-                                        <a href="" target="_blank"></a>
-                                    </td>
-                                    <td>${item.oi_mi_seq}</td>
-                                    <td>${item.oi_price}</td>
-                                    <td>${item.oi_count}</td>
-                                    <td>${item.oi_shipping_name}</td>
-                                    <td>${item.oi_shipping_address}</td>
-                                    <td>${item.oi_shipping_phone}</td>
-                                    <td>${item.oi_shipping_request}</td>
-                                    <td>${item.oi_pay_type}</td>
-                                    <c:if test="${item.oi_delivery_status == 0}"><span>배송전</span></c:if>
-                                    <c:if test="${item.oi_delivery_status == 1}"><span>배송중</span></c:if>
-                                    <td>${item.oi_delivery_number}</td>
-                                    <c:if test="${item.oi_status == 0}"><span>정상</span></c:if>
-                                    <c:if test="${item.oi_status == 1}"><span>반품</span></c:if>
-                                    <c:if test="${item.oi_status == 2}"><span>교환</span></c:if>
-                                    <fmt:formatDate value="${item.oi_reg_dt}" pattern="yyyy-MM-dd HH:mm:ss" />
-                                    <fmt:formatDate value="${item.oi_mod_dt}" pattern="yyyy-MM-dd HH:mm:ss" />
-                                </tr>
-                                <biv class="btns">
-                                    <button class="delivery_number">배송처리</button>
-                                    <button id="update">수정</button>
-                                    <button id="cancel">취소</button>
-                                </biv>
-                            </c:forEach>
-                        </tbody>
-                        <div class="pager_area">
-                            <c:forEach begin="1" end="${page}" var="i">
-                                <a href="/account/member?offset=${(i-1)*10}&keyword=${keyword}">${i}</a>
-                            </c:forEach>
-                        </div>
-                    </table>
-                </div>
-
-                <div class="popup_wrap">
-                    <div class="popup">
-                        <h2>송장번호 추가</h2>
-                        <div class="delivery_number_add">
-                            <input type="text" id="di_name" placeholder="택배사">
-                            <input type="text" id="oi_delivery_number" placeholder="송장번호">
-                        </div>
-                    </div>
-                </div>
+        <h2>주문 관리</h2>
+        <table>
+            <thead>
+                <td>
+                    <th>주문번호</th>
+                    <th>제품명</th>
+                    <th>금액</th>
+                    <th>수량</th>
+                    <th>총 금액</th>
+                    <th>수령인</th>
+                    <th>배송지</th>
+                    <th>연락처</th>
+                    <th>요청사항</th>
+                    <th>결제방법</th>
+                    <th>주문상태</th>
+                    <th>배송상태</th>
+                    <th>송장번호</th>
+                    <th>주문일</th>
+                    <th>처리일</th>
+                    <th></th>
+                </td>
+            </thead>
+            <tbody>
+                <c:forEach items="${list}" var="item">
+                <tr>
+                    <td>${item.oi_seq}</td>
+                    <td>${item.pi_seq}</td>
+                    <td>
+                        
+                    </td>
+                    <td>${item.oi_price}</td>
+                    <td>${item.oi_count}</td>
+                    <td>
+                        <fmt:formatNumber value="${item.order_amount}" pattern="###,###,###"/>
+                    </td>
+                    <td>${item.oi_shipping_name}</td>
+                    <td>${item.oi_shiipping_address}</td>
+                    <td>${item.oi_shiipping_phone}</td>
+                    <td>${item.oi_shipping_request}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${item.oi_pay_type == 'account'}">계좌이체</c:when>
+                            <c:when test="${item.oi_pay_type == 'card'}">신용카드</c:when>
+                            <c:when test="${item.oi_pay_type == 'kakao'}">카카오페이</c:when>
+                            <c:when test="${item.oi_pay_type == 'naver'}">네이버페이</c:when>
+                            <c:when test="${item.oi_pay_type == 'toss'}">토스</c:when>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${item.oi_status == 0}">정상</c:when>
+                            <c:when test="${item.oi_status == 1}">반품</c:when>
+                            <c:when test="${item.oi_status == 2}">교환</c:when>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                        <c:when test="${item.oi_delivery_status == 0}">배송전</c:when>
+                        <c:when test="${item.oi_delivery_status == 1}">배송중</c:when>
+                        <c:when test="${item.oi_delivery_status == 2}">배송완료</c:when>
+                        </c:choose>
+                    </td>
+                    <td>${item.di_name}</td>
+                    <td>
+                        <c:if test="${item.oi_delivery_number == null}">
+                            <span>미입력</span>
+                        </c:if>
+                        <c:if test="${item.oi_delivery_number != null}">
+                            ${item.oi_delivery_number}
+                        </c:if>
+                    </td>
+                    <td>
+                        <fmt:formatDate value="${item.oi_reg_dt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </td>
+                    <td>
+                        <fmt:formatDate value="${item.oi_mod_dt}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </td>
+                    <td>
+                        <c:if test="${item.oi_delivery_status == 0}">
+                            <button class="delivery_confirm" data-seq="${item.oi_seq}">송장입력</button>
+                        </c:if>
+                        <c:if test="${item.oi_delivery_status != 0}">
+                            <button disabled>송장입력</button>
+                        </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <div class="pager_area">
+            <c:forEach begin="1" end="${page}" var="i">
+                <a href="/order/list?keyword=${keyword}&offset=${(i-1)*10}" class="pager">${i}</a>
+            </c:forEach>
+        </div>
+        <div class="popup" style="display: none;">
+            <div class="popup_wrap">
+                <h2>송장입력</h2>
+                <input type="text" id="delivery_number">
+                <button id="save">확인</button>
+                <button id="cancel">취소</button>
             </div>
         </div>
     </main>
-    
 </body>
 </html>

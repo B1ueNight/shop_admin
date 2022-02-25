@@ -2,12 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bluenight.shoppingmall_admin.mapper.OrderMapper">
-    <select id="getOrderList" resultType="com.bluenight.shoppingmall_admin.data.OrderInfoVO">
-        select * from order_info
+    <select id="selectOrderManagedInfo" resultType="com.bluenight.shoppingmall_admin.data.OrderManageInfoVO">
+        select * from order_manage_list
+        <if test="seq != 0">
+            where si_seq = #{seq}
+        </if>
         order by oi_seq desc
         limit 10 offset #{offset}
     </select>
-    <select id="getOrderCnt" resultType="java.lang.Integer">
-        select count(*) from order_info
+    <select id="selectOrderManagedInfoCount" resultType="java.lang.Integer">
+        select count(*) from order_manage_list
     </select>
+    <update id="updateOrderStatus">
+        update order_info set
+        oi_delivery_number = #{delivery_no},
+        oi_delivery_status = 2,
+        oi_mod_dt = now()   
+        where oi_seq = #{seq}
+    </update>
     </mapper>

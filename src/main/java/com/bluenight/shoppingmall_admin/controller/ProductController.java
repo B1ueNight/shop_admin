@@ -117,4 +117,34 @@ public class ProductController {
             model.addAttribute("list", mapper.selectRecommendProductList(keyword, offset));
             return "/product/recommend";
         }
+        
+        @GetMapping("/product/review")
+        public String getProductReview(Model model, HttpSession session, @RequestParam @Nullable Integer offset, 
+            @RequestParam @Nullable String align_type, @RequestParam @Nullable String review_status,
+            @RequestParam @Nullable String keyword, @RequestParam @Nullable String search_type){
+            SellerVO seller = (SellerVO)session.getAttribute("login_seller");
+            Integer si_seq = 0;
+            model.addAttribute("keyword", keyword);
+
+            if(seller != null) si_seq = seller.getSi_seq();
+            if(offset == null) offset = 0;
+            if(align_type == null) align_type = "default";
+            if(review_status == null) review_status = "all";
+            if(keyword == null) keyword = "%%";
+            else keyword = "%"+keyword+"%";
+            if(search_type == null)search_type = "all";
+
+            model.addAttribute("list", mapper.selectProductReview(si_seq, offset, align_type, review_status, keyword, search_type));
+            model.addAttribute("offset", offset);
+            model.addAttribute("align_type", align_type);
+            model.addAttribute("review_status", review_status);
+            model.addAttribute("search_type", search_type);
+
+            Integer cnt = mapper.selectProductReviewCount(si_seq, review_status, keyword, search_type);
+            Integer page = (cnt/10) + (cnt%10>0?1:0);
+
+            model.addAttribute("page", page);
+
+            return "/product/review";
+        }
 }

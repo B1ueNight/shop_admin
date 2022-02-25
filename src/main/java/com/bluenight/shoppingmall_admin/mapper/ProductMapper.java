@@ -7,6 +7,7 @@ import com.bluenight.shoppingmall_admin.data.ProductDescImageVO;
 import com.bluenight.shoppingmall_admin.data.ProductDescVO;
 import com.bluenight.shoppingmall_admin.data.ProductImageVO;
 import com.bluenight.shoppingmall_admin.data.ProductVO;
+import com.bluenight.shoppingmall_admin.data.ReviewVO;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -38,4 +39,10 @@ public interface ProductMapper {
 
     void insertProductRecommend(Integer seq);
     void deleteProductRecommend(Integer seq);
+
+    List<ReviewVO> selectProductReview(Integer si_seq, Integer offset, String align_type, String review_status, String keyword, String search_type);
+    Integer selectProductReviewCount(Integer si_seq, String review_status, String keyword, String search_type);
+
+    void patchReviewStatus(Integer seq, Integer status);
+
 }
