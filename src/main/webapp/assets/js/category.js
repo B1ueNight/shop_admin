@@ -258,7 +258,7 @@ $(function(){
         let type = $(this).attr("data-type");
         let keyword = $("#search_keyword").val();
 
-        location.href="/manage/category?keyword="+keyword+"&type="+dataType;
+        location.href="/manage/category?keyword="+keyword+"&type="+type;
     })
     $("#search_keyword").keydown(function(e) {
         if(e.keyCode == 13) {

@@ -95,7 +95,7 @@
     <select id="selectProductReview" resultType="com.bluenight.shoppingmall_admin.data.ReviewVO">
         select * from
         (
-        select a.*, b.pi_name, c.mi_name from review_info a
+        select a.*, b.pi_name, b.pi_seller_seq, c.mi_name from review_info a
         inner join product_info b
         on a.ri_pi_seq = b.pi_seq 
         inner join member_info c 
